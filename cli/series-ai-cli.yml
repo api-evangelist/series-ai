@@ -1,0 +1,107 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/series-ai/venus-sdk-docs (cli-reference.md, deploying-your-game.md) + rundot-cli-releases
+name: rundot CLI
+description: >-
+  rundot is the first-party command-line tool for shipping and operating a
+  RUN.world title: initialize projects, deploy builds, generate game assets and
+  3D models, inspect and repair live player data, moderate leaderboards, and run
+  growth (paid ads, organic launch packets, competitive intel).
+binary: rundot
+releases: https://github.com/series-ai/rundot-cli-releases/releases
+install:
+- method: shell
+  platform: macos-linux
+  command: "curl -fsSL https://github.com/series-ai/rundot-cli-releases/releases/latest/download/install.sh | bash"
+- method: powershell
+  platform: windows
+  command: "irm https://github.com/series-ai/rundot-cli-releases/releases/latest/download/install.ps1 | iex"
+- method: npx
+  note: "npx rundot-sdk-setup installs the SDK API docs into a game project"
+update:
+- "rundot update           # latest stable"
+- "rundot update --beta     # beta channel"
+- "rundot update --stable   # back to stable"
+channels:
+- stable
+- beta
+config:
+  session_dir: "~/.rundot/ (macOS/Linux) or %USERPROFILE%\\.rundot\\ (Windows)"
+  project_config: game.config.prod.json
+  beta_flag: "RUNDOT_BETA_FEATURES=1 unhides marketing, socials, ugc, stats, collectibles, image utils"
+command_groups:
+- group: login
+  description: Authenticate via browser (default), --api-key rk_..., or --refresh-token.
+- group: init
+  description: Create a new game and write game.config.prod.json (game ID + build path).
+- group: deploy
+  description: Ship a new version; --bump major|minor|patch (minor default), --public, --changelog, --announce.
+- group: list-games
+  description: List your games.
+- group: game
+  description: >-
+    Metadata, versions, tags, editors, API keys, and the 3D pipeline. Includes
+    game api-keys create|list|regenerate|revoke, list-versions, list-tags,
+    update-tag, copy-tag, delete-tag, server/runtime config management.
+- group: generate
+  description: Generate sprites, images, audio, video, TTS, and text completions.
+  gated: false
+- group: image
+  description: Post-process images (remove-bg, upscale, depth, turnaround).
+  gated: beta
+  notes: prod-only; requires interactive login, rejects rk_ API-key sessions.
+- group: storage
+  description: Read/write player key-value storage (debug/admin).
+- group: files
+  description: Read/write player file storage (debug/admin).
+- group: leaderboard
+  description: Inspect scores, moderate, shadow-ban cheaters.
+- group: stats
+  description: Player stats.
+  gated: beta
+- group: collectibles
+  description: Collectible grants.
+  gated: beta
+- group: ugc
+  description: User-generated content.
+  gated: beta
+- group: marketing
+  description: Paid ad campaigns.
+  gated: beta
+- group: socials
+  description: Organic launch packets.
+  gated: beta
+- group: intel
+  description: Competitive market intelligence (credit-priced).
+- group: jam
+  description: Scaffold jam kits and get promo links.
+- group: credits
+  description: Credit balance and usage breakdown.
+- group: pack
+  description: Compile, submit, and check Kinetix native packs.
+  gated: beta
+- group: skills
+  description: Manage Agent Skills for the project.
+- group: ai
+  description: "ai setup configures AI coding agents with the RUN.world SDK docs."
+- group: profile
+  description: profile search finds creator profiles by username.
+- group: migrate-config
+  description: Migrate legacy config into the visible rundot/ folder.
+key_flows:
+- name: Ship a game
+  steps:
+  - rundot login
+  - rundot init --name "Bricktide" --build-path ./dist
+  - rundot deploy --public
+- name: CI/CD deploy
+  steps:
+  - rundot game api-keys create --label "GitHub Actions" --expires-in-days 90
+  - rundot login --api-key rk_...
+  - rundot deploy --bump patch
+- name: Promote build via tags
+  steps:
+  - rundot game update-tag prod --version 1.4.0
+  - rundot game copy-tag staging prod
+related:
+  companion_cli: "@series-inc/stowkit-cli (asset packs) — see packages/series-ai-packages.yml"

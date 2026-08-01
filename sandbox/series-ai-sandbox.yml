@@ -1,0 +1,39 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/series-ai/venus-sdk-docs (playground.md, cli-reference.md, deploying-your-game.md)
+name: RUN.world Playground (local testing)
+description: >-
+  Playground runs your game on a local Vite dev server while SDK calls hit the
+  RUN.world playground backend, letting you exercise storage, profiles,
+  leaderboards, purchases, multiplayer, simulation, and other SDK APIs before
+  deploying a build. Playground data is separate from production and may be
+  reset periodically.
+modes:
+- name: playground
+  description: >-
+    Local Vite dev server with the rundotGamePlaygroundPlugin() Vite plugin
+    injected only during `vite dev`; the local page gets a RUN.world toolbar for
+    sign-in, player switching, and environment status.
+  activation: "add rundotGamePlaygroundPlugin() next to rundotGameLibrariesPlugin() in vite.config.ts"
+  backend: RUN.world playground backend (separate from production; may be reset)
+- name: production
+  description: Live RUN.world platform reached after `rundot deploy`.
+setup:
+  install:
+  - "npm install @series-inc/rundot-game-sdk@latest"
+  - "npm install --save-dev vite typescript firebase@^12.12.1"
+  optional_iap:
+  - "npm install --save-dev @revenuecat/purchases-js@^1.39.1  # only for testing IAP/subscriptions in Playground"
+  run: "npm run dev  # Vite; SDK calls are mocked by default until the playground plugin is configured"
+auth:
+  api_key_prefix: "rk_"
+  api_key_scope: per-game
+  notes: >-
+    Per-game rk_ API keys are used for headless CI/CD (rundot login --api-key).
+    Key management and some prod-only tooling (e.g. image utilities) reject
+    rk_ sessions and require an interactive owner login.
+test_values:
+  note: >-
+    RUN.world publishes no fixed test cards, test tokens, or fixture values;
+    Playground uses live player sign-in against a reset-able backend. No
+    synthetic payment credentials are provided in the docs.

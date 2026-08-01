@@ -1,0 +1,32 @@
+generated: '2026-07-21'
+method: searched
+source: npm @series-inc/rundot-game-sdk registry metadata + rundot-cli-releases GitHub Releases + venus-sdk-docs (api/RELEASE_NOTES.md)
+name: RUN.world SDK / CLI Change Log
+description: >-
+  Series AI ships changes through npm (SDK) and GitHub Releases (CLI). Games
+  publish their own moderated release notes on deploy via the Release Notes API.
+  No consolidated human-readable dated changelog page was found; the structured
+  scheme below is derived from published release channels.
+schemes:
+- surface: RUN.world SDK
+  package: "@series-inc/rundot-game-sdk"
+  registry: https://www.npmjs.com/package/@series-inc/rundot-game-sdk?activeTab=versions
+  scheme: semver npm versions
+  current_version: 5.24.0
+  first_published: '2026-01-23'
+  last_published: '2026-07-19'
+  total_versions: 164
+  cadence: frequent (multiple releases per week)
+- surface: rundot CLI
+  releases: https://github.com/series-ai/rundot-cli-releases/releases
+  scheme: GitHub Releases (stable + beta channels)
+- surface: per-game release notes
+  mechanism: >-
+    `rundot deploy --changelog ./CHANGELOG.md --announce` publishes a moderated
+    release note; the runtime Release Notes API lets a game read its own history
+    and deep-link players to the info page.
+entries: []
+notes: >-
+  entries[] is intentionally empty: Series AI does not publish a dated,
+  itemized SDK changelog page. Version history is available via npm; game-level
+  changelogs are author-supplied at deploy time.

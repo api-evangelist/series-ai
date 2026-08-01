@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/series-ai/venus-sdk-docs (error-handling.md, api/RATE_LIMITS.md)
+name: RUN.world SDK Error Catalog
+description: >-
+  Error model for the RUN.world SDK. Errors are JavaScript exceptions delivered
+  across the React Native JS bridge, not RFC 9457 problem+json HTTP bodies.
+  Structured failures are RundotApiError instances carrying a machine-readable
+  code, an HTTP status (0 for transport/RPC errors), and an optional detail.
+format: sdk-exception
+envelope:
+  class: RundotApiError
+  fields:
+    code: string (machine-readable; switch on this)
+    status: number (HTTP status, or 0 for transport/RPC)
+    detail: string | undefined
+fatal_behavior: >-
+  An unhandled promise rejection from any RundotGameAPI call is treated by the
+  host app as a fatal RUNTIME_ERROR and crashes the player back to the RUN
+  catalog. Wrap awaited calls in try/catch and attach .catch() to
+  fire-and-forget calls.
+problem_types:
+- code: RUNTIME_ERROR
+  title: Fatal runtime error
+  meaning: An unhandled SDK rejection bubbled to the host; the game is terminated.
+  remediation: Handle every SDK promise; never leave a rejection unhandled.
+- code: RATE_LIMITED
+  title: Rate limited
+  status: 429
+  class: RateLimitedError
+  meaning: Too many requests for the authenticated user (or IP). Carries retryAfterMs.
+  remediation: Back off using retryAfterMs; keep a conservative fallback when timing is omitted.
+- code: UNKNOWN
+  title: Unknown error
+  meaning: Unclassified failure; inspect status and detail.
+  remediation: Log detail; degrade gracefully.
+detection_guidance: >-
+  RundotApiError and RateLimitedError are not exported from the package barrel
+  or the /api entrypoint. Detect by duck-typing (err.code === 'RATE_LIMITED' or
+  err.name === 'RateLimitedError') rather than instanceof.

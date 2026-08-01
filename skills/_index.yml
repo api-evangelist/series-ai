@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: generated
+source: >-
+  Generated from RUN.world SDK docs (github.com/series-ai/venus-sdk-docs),
+  grounded in real RundotGameAPI methods and rundot CLI commands. The provider
+  also publishes an agent index (series-ai-agents-index.txt, saved verbatim).
+name: Series AI / RUN.world Agent Skills
+description: >-
+  Packaged Agent Skills for marquee RUN.world developer flows, plus the
+  provider-published agents index that points AI coding agents at the SDK docs.
+api: RUN.world SDK
+skills:
+- name: Deploy a game to RUN.world
+  file: series-ai-deploy-a-game.md
+  method: generated
+- name: Add rewarded-ad monetization
+  file: series-ai-rewarded-ads.md
+  method: generated
+- name: Persist player progress and post a leaderboard score
+  file: series-ai-progress-and-leaderboard.md
+  method: generated
+provider_published:
+- name: RUN.world SDK agents index
+  file: series-ai-agents-index.txt
+  method: searched
+  source: https://raw.githubusercontent.com/series-ai/venus-sdk-docs/main/agents-index.txt
+  note: >-
+    Verbatim agent index shipped by Series AI; instructs agents to prefer
+    retrieval-led reasoning over pre-training for RundotGameAPI tasks. The CLI
+    also exposes `rundot ai setup` and `rundot skills` to wire agents to these docs.

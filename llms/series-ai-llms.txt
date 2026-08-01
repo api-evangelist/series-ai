@@ -1,0 +1,40 @@
+# Series AI — RUN.world Game Platform
+
+> Series AI (Series Entertainment, Inc.) is an a16z-backed, AI-native game company behind RUN.world, a platform to create, publish, play, and monetize HTML5 games. Developers build games with the RUN.world SDK (@series-inc/rundot-game-sdk) — a single RundotGameAPI import for storage, profiles, leaderboards, ads, purchases, entitlements, multiplayer, server-authoritative simulation, and generative AI — and ship them with the rundot CLI.
+
+Key facts for agents working against this platform:
+- The SDK is a client-side JavaScript/TypeScript bridge (React Native JS bridge), not a REST API. Import: `import RundotGameAPI from '@series-inc/rundot-game-sdk/api'`.
+- Every RundotGameAPI method returns a promise that can reject; an unhandled rejection crashes the game (fatal RUNTIME_ERROR). Always try/catch awaited calls and .catch() fire-and-forget calls.
+- Auth is platform-provided: RUN.world signs players in; games cannot run their own login. CLI/CI uses per-game `rk_` API keys.
+- Rate limits surface as HTTP 429 / RateLimitedError with retryAfterMs; detect by `err.code === 'RATE_LIMITED'`.
+
+## Developer Docs
+- [RUN.world SDK README](https://github.com/series-ai/venus-sdk-docs/blob/main/README.md): SDK overview and API index.
+- [Getting Started](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/getting-started.md): install Node, CLI, and SDK; first deploy.
+- [Initializing Your Game](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/initializing-your-game.md): project setup.
+- [Runtime Environment](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/runtime-environment.md): storage scopes, identity, allowed content hosts, sandbox limits.
+- [Error Handling](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/error-handling.md): RPC rejection model, fire-and-forget helpers.
+- [Testing Locally With Playground](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/playground.md): local Vite dev server against the playground backend.
+- [Deploying Your Game](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/deploying-your-game.md): login, deploy, versioning, tags, CI/CD API keys.
+- [rundot CLI Reference](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/cli-reference.md): full command surface.
+- [Full table of contents (SUMMARY)](https://github.com/series-ai/venus-sdk-docs/blob/main/SUMMARY.md): every API page.
+
+## API Reference (selected)
+- [Storage API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/STORAGE.md): appStorage / deviceCache / ownerStorage / sharedStorage.
+- [Profiles API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/PROFILE.md): signed-in player identity.
+- [Access Gate API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/ACCESS_GATE.md): require sign-in / gate features.
+- [Leaderboards API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/LEADERBOARD.md): scores and moderation.
+- [Ad Monetization API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/ADS.md): rewarded and interstitial ads.
+- [Purchases API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/PURCHASES.md): spend RunBucks on digital goods.
+- [AI API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/AI.md): text, image, audio, and video generation.
+- [Multiplayer API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/MULTIPLAYER.md): real-time sessions (BETA).
+- [Syncplay API](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/SYNCPLAY.md): deterministic multiplayer.
+- [Rate Limits](https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/api/RATE_LIMITS.md): 429 handling and RundotApiError shape.
+
+## Packages
+- npm scope: https://www.npmjs.com/org/series-inc (rundot-game-sdk, rundot-3d-engine, rundot-syncplay, stowkit-* asset tooling)
+
+## Optional
+- [Series AI (company)](https://series.inc): company site and careers.
+- [RUN.world](https://run.world): the player and creator platform.
+- [GitHub org](https://github.com/series-ai): open-source templates, workshop, CLI releases.

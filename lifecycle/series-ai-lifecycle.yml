@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/series-ai/venus-sdk-docs (SUMMARY.md, cli-reference.md, deploying-your-game.md, api/RELEASE_NOTES.md) + npm @series-inc/rundot-game-sdk
+name: RUN.world SDK & Platform Lifecycle
+description: >-
+  How Series AI versions and evolves the RUN.world SDK, CLI, and games. The SDK
+  ships as semver npm releases; individual SDK APIs are labeled by maturity
+  (GA, BETA, 1.0 Candidate); the CLI carries stable and beta release channels;
+  games are versioned per deploy with promotable named tags.
+sdk_versioning:
+  package: "@series-inc/rundot-game-sdk"
+  scheme: semver (npm)
+  current: 5.24.0
+  release_count: 164
+api_maturity_labels:
+- label: GA
+  meaning: Generally available, stable surface.
+- label: BETA
+  meaning: Preview API subject to change (e.g. Multiplayer, Simulation, Files, Image/Audio/Video Gen).
+- label: "1.0 Candidate"
+  meaning: Near-stable (e.g. Syncplay deterministic multiplayer).
+cli_channels:
+  stable: default (rundot update --stable)
+  beta: opt-in (rundot update --beta); beta command groups gated behind RUNDOT_BETA_FEATURES=1
+game_versioning:
+  deploy: "rundot deploy bumps major|minor|patch (minor default)"
+  tags: "named tags (prod/staging) point at versions; update-tag / copy-tag promote without redeploy"
+  release_notes: >-
+    Deploying with a changelog publishes a moderated release note; the Release
+    Notes API lets a game read its own history and deep-link players.
+    See changelog/series-ai-changelog.yml.
+deprecation:
+  policy: not formally published (no documented Sunset/Deprecation HTTP header policy)
+  signal: API maturity labels (BETA/Candidate) indicate surfaces that may change
+status_page:
+  present: false
+  note: No public status page found (status.run.world and series.inc/status did not resolve).

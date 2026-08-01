@@ -1,0 +1,105 @@
+generated: '2026-07-21'
+method: searched
+source: npm registry (@series-inc scope) + venus-sdk-docs + rundot-cli-releases
+name: Series AI / RUN.world Packages
+description: >-
+  First-party client libraries, engines, and tooling published by Series AI for
+  building HTML5 games on the RUN.world platform. All npm packages live under
+  the @series-inc scope. The rundot CLI is distributed as a native binary via
+  GitHub Releases (see cli/series-ai-cli.yml).
+registries:
+  npm: https://www.npmjs.com/org/series-inc
+packages:
+- name: "@series-inc/rundot-game-sdk"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 5.24.0
+  license: MIT
+  description: >-
+    The RUN.world SDK. Single RundotGameAPI import exposing storage, profiles,
+    leaderboards, ads, purchases, entitlements, multiplayer, simulation, and
+    generative AI, plus Vite plugins (libraries + playground).
+  url: https://www.npmjs.com/package/@series-inc/rundot-game-sdk
+  entrypoints:
+  - "@series-inc/rundot-game-sdk/api"
+  - "@series-inc/rundot-game-sdk/vite"
+- name: "@series-inc/rundot-3d-engine"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 0.6.22
+  description: Three.js-based game engine with ECS architecture and physics.
+  url: https://www.npmjs.com/package/@series-inc/rundot-3d-engine
+- name: "@series-inc/rundot-syncplay"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 5.23.0
+  license: MIT
+  description: Offline-first deterministic multiplayer core for RUN.world.
+  url: https://www.npmjs.com/package/@series-inc/rundot-syncplay
+- name: "@series-inc/rundot-kinetix"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 0.1.0-beta.0
+  description: "Data-only game runtime core: compiler, baker, world kernel."
+  url: https://www.npmjs.com/package/@series-inc/rundot-kinetix
+- name: "@series-inc/venus-sdk"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 5.0.2
+  license: MIT
+  description: Venus H5 API runtime with type-safe default export.
+  url: https://www.npmjs.com/package/@series-inc/venus-sdk
+- name: "@series-inc/slinky-phaser"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 2.0.0
+  license: MIT
+  description: Phaser visual-novel framework built on slinky-core.
+  url: https://www.npmjs.com/package/@series-inc/slinky-phaser
+- name: "@series-inc/blast-radius"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 0.1.3
+  license: Apache-2.0
+  description: Blast-radius tiered PR merge policy for AI-authored code.
+  url: https://www.npmjs.com/package/@series-inc/blast-radius
+- name: "@series-inc/stowkit-cli"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 0.6.42
+  bin: stowkit
+  description: CLI for authoring StowKit (.stow) asset packs.
+  url: https://www.npmjs.com/package/@series-inc/stowkit-cli
+- name: "@series-inc/stowkit-reader"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 0.1.46
+  description: WebAssembly-based reader for StowKit (.stow) asset pack files.
+  url: https://www.npmjs.com/package/@series-inc/stowkit-reader
+- name: "@series-inc/stowkit-three-loader"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 0.1.52
+  description: Three.js loader for StowKit asset packs.
+  url: https://www.npmjs.com/package/@series-inc/stowkit-three-loader
+- name: "@series-inc/stowkit-phaser-loader"
+  registry: npm
+  ecosystem: javascript
+  official: true
+  version: 0.1.25
+  description: Phaser loader for StowKit asset packs (KTX2/Basis Universal).
+  url: https://www.npmjs.com/package/@series-inc/stowkit-phaser-loader
+notes: >-
+  The npm package `venus-sdk` (unscoped, publisher sealemlab) is an unrelated
+  web3 project and is NOT a Series AI package; the first-party equivalent is
+  @series-inc/venus-sdk.

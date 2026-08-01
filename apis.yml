@@ -1,8 +1,31 @@
 aid: series-ai
 name: Series AI
-description: Series AI is a company surfaced as a portfolio company of a16z and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Series AI (Series Entertainment, Inc.) is an a16z-backed, AI-native game
+  company behind RUN.world, a platform to create, publish, play, and monetize
+  HTML5 games. Series ships a real first-party developer surface: the RUN.world
+  SDK (@series-inc/rundot-game-sdk) exposes a single RundotGameAPI for player
+  storage, profiles, leaderboards, ad monetization, purchases, entitlements,
+  multiplayer, server-authoritative simulation, and generative AI (image,
+  audio, video, and text), while the rundot CLI scaffolds, deploys, versions,
+  and operates live titles. StowKit asset tooling, a Three.js-based 3D engine
+  with ECS, the Syncplay deterministic-multiplayer core, and a community
+  workshop of game starters round out the toolchain. Founded by veterans from
+  Riot, Epic, Blizzard, Pocket Gems, and Telltale.
 url: https://raw.githubusercontent.com/api-evangelist/series-ai/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: open
+  trial: false
+  try_now: false
+  public: true
+  label: Open access
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://avatars.githubusercontent.com/u/126116685?v=4
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -11,12 +34,88 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 14
+  pass: local-v1
 tags:
 - Company
-apis: []
+- Games
+- Game Development
+- Artificial Intelligence
+- Generative AI
+- Game Engine
+- SDK
+- Developer Tools
+- Multiplayer
+- HTML5
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: RUN.world SDK
+  description: >-
+    Client-side JavaScript/TypeScript SDK (@series-inc/rundot-game-sdk) that
+    gives an HTML5 game access to RUN.world platform services through a single
+    RundotGameAPI import: storage scopes, profiles, leaderboards, ads,
+    purchases, entitlements, multiplayer, server-authoritative simulation, and
+    generative AI. Calls cross a React Native JS bridge; failures surface as
+    RundotApiError / RateLimitedError.
+  humanURL: https://github.com/series-ai/venus-sdk-docs
+  baseURL: https://run.world
+  properties:
+  - type: Documentation
+    url: https://github.com/series-ai/venus-sdk-docs
+  - type: APIReference
+    url: https://github.com/series-ai/venus-sdk-docs/blob/main/SUMMARY.md
+  - type: GettingStarted
+    url: https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/getting-started.md
+common:
+- type: DomainSecurity
+  url: security/series-ai-domain-security.yml
+- type: DeveloperPortal
+  url: https://run.world
+- type: Documentation
+  url: https://github.com/series-ai/venus-sdk-docs
+- type: APIReference
+  url: https://github.com/series-ai/venus-sdk-docs/blob/main/SUMMARY.md
+- type: GettingStarted
+  url: https://github.com/series-ai/venus-sdk-docs/blob/main/rundot-developer-platform/getting-started.md
+- type: GitHubOrganization
+  url: https://github.com/series-ai
+- type: SourceCode
+  url: https://github.com/series-ai/run-workshop
+- type: PrivacyPolicy
+  url: https://series.inc/privacy
+- type: Packages
+  url: packages/series-ai-packages.yml
+- type: SDKs
+  url: packages/series-ai-packages.yml
+- type: CLI
+  url: cli/series-ai-cli.yml
+- type: Sandbox
+  url: sandbox/series-ai-sandbox.yml
+- type: Conventions
+  url: conventions/series-ai-conventions.yml
+- type: ErrorCatalog
+  url: errors/series-ai-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/series-ai-lifecycle.yml
+- type: ChangeLog
+  url: changelog/series-ai-changelog.yml
+- type: Authentication
+  url: authentication/series-ai-authentication.yml
+- type: LLMsTxt
+  url: llms/series-ai-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: VulnerabilityDisclosure
+  url: security/series-ai-vulnerability-disclosure.yml
+- type: Security
+  url: security/series-ai-vulnerability-disclosure.yml
+- type: WellKnown
+  url: well-known/series-ai-well-known.yml

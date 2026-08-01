@@ -1,0 +1,28 @@
+generated: '2026-07-21'
+method: probed
+source: HTTP probes of series.inc and run.world well-known paths
+name: Series AI well-known endpoints
+description: >-
+  Probe of standard /.well-known/ discovery endpoints on the Series AI website
+  host (series.inc) and the RUN.world platform host. No well-known documents are
+  published. Empty result is expected for a consumer game platform.
+host: series.inc
+endpoints:
+- path: /.well-known/security.txt
+  status: 404
+  file: null
+- path: /.well-known/openid-configuration
+  status: 404
+  file: null
+- path: /.well-known/oauth-authorization-server
+  status: 404
+  file: null
+- path: /.well-known/api-catalog
+  status: 404
+  file: null
+- path: /.well-known/ai-plugin.json
+  status: 404
+  file: null
+notes: >-
+  run.world is a client-rendered SPA and exposes no well-known documents either;
+  llms.txt was absent (404) on both hosts.

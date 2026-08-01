@@ -1,0 +1,47 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/series-ai/venus-sdk-docs (runtime-environment.md, deploying-your-game.md, api/ACCESS_GATE.md, api/PROFILE.md, api/APP.md)
+name: RUN.world Authentication
+description: >-
+  RUN.world is the only supported auth system for a game. The platform signs
+  players in and hands the game their identity; games cannot run their own
+  login. Programmatic/CLI access uses per-game opaque API keys.
+player_identity:
+  model: platform-provided
+  detail: >-
+    RUN.world authenticates players and passes identity to the game. Self-hosted
+    Firebase Auth, Google/Apple/third-party OAuth, and custom identity providers
+    do not work inside the game iframe (auth scripts, token endpoints, and OAuth
+    popups are blocked by the platform sandbox).
+  apis:
+  - name: Access Gate API
+    purpose: Require sign-in / gate features behind a signed-in player.
+    ref: rundot-developer-platform/api/ACCESS_GATE.md
+  - name: Profiles API
+    purpose: Read the signed-in player's identity.
+    ref: rundot-developer-platform/api/PROFILE.md
+  - name: App API
+    purpose: Check the player's role for the game (owner/editor).
+    ref: rundot-developer-platform/api/APP.md
+programmatic_access:
+  interactive:
+    scheme: browser login (Google account) via `rundot login`
+    session: stored locally in ~/.rundot/ (macOS/Linux) or %USERPROFILE%\.rundot\ (Windows)
+  api_key:
+    scheme: bearer-style per-game API key
+    prefix: "rk_"
+    scope: single game; managed only by the game owner
+    lifecycle: "rundot game api-keys create|list|regenerate|revoke; --expires-in-days supported"
+    display: "secret printed once on create/regenerate — save immediately"
+    restriction: >-
+      Key management is unavailable when authenticated with an rk_ key; it
+      requires an interactive owner login. Some prod-only tooling also rejects
+      rk_ sessions.
+    use: "headless CI/CD (GitHub Actions, GitLab CI): `rundot login --api-key rk_...`"
+security_schemes:
+- type: platform-managed (player)
+  location: RUN.world host
+- type: apiKey
+  name: rk_ per-game key
+  in: cli/ci session
+oauth2: false

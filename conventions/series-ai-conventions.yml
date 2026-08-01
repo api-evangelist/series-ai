@@ -1,0 +1,63 @@
+generated: '2026-07-21'
+method: searched
+source: https://github.com/series-ai/venus-sdk-docs (runtime-environment.md, error-handling.md, api/RATE_LIMITS.md, api/STORAGE.md)
+name: RUN.world SDK Conventions
+description: >-
+  Cross-cutting runtime semantics for the RUN.world SDK. The SDK is a
+  client-side JavaScript bridge (React Native JS bridge), not a REST API, so
+  conventions center on the RPC call model, error handling, rate-limit
+  signaling, storage scopes, and the platform-provided identity model.
+transport:
+  model: RPC over a React Native JS bridge (RundotGameAPI methods return promises)
+  entrypoint: "import RundotGameAPI from '@series-inc/rundot-game-sdk/api'"
+  critical: >-
+    Every method (including void-typed ones) can reject due to bridge timeouts,
+    disconnects, or host-side failures. An unhandled rejection is treated by the
+    host app as a fatal RUNTIME_ERROR and crashes the player back to the RUN
+    catalog. Always try/catch awaited calls and .catch() fire-and-forget calls.
+auth:
+  style: platform-provided identity (RUN.world signs players in; the game cannot run its own login)
+  detail: >-
+    Self-hosted Firebase Auth, Google/Apple/third-party OAuth, and custom IdPs
+    are blocked by the platform sandbox. Use the Access Gate API to require
+    sign-in, the Profiles API to read identity, and the App API for the player's
+    role. CLI/CI uses per-game rk_ API keys.
+  see: authentication/series-ai-authentication.yml
+error_envelope:
+  type: RundotApiError
+  fields:
+    code: "string, machine-readable (e.g. RATE_LIMITED, UNKNOWN). Switch on this, not message text."
+    status: "number, HTTP status when over HTTP; 0 for transport/RPC errors."
+    detail: "string | undefined, optional human-readable cause from the server."
+  subclasses:
+  - RateLimitedError (code always 'RATE_LIMITED')
+  detection: >-
+    RundotApiError/RateLimitedError are NOT exported from the package barrel;
+    duck-type with err.code === 'RATE_LIMITED' or err.name === 'RateLimitedError'
+    rather than instanceof.
+  see: errors/series-ai-problem-types.yml
+rate_limiting:
+  scope: per authenticated user (per IP for unauthenticated traffic)
+  signal: HTTP 429 Too Many Requests -> RateLimitedError
+  retry: "RateLimitedError.retryAfterMs carries server-suggested backoff (ms)."
+  stricter_categories:
+  - "text generation (textGen.requestChatCompletionAsync)"
+  - "image generation (imageGen.generate)"
+  - "sensitive writes (creating comments/accounts)"
+  guidance: "Exact limits are unpublished and may change; build for graceful degradation."
+storage_scopes:
+  appStorage: per-player save state for your game (cloud-synced)
+  deviceCache: anonymous per-device hints, cross-game
+  ownerStorage: per-player state shared across every title you publish
+  sharedStorage: per-player state shared with another creator's game under an explicit access policy
+  note: >-
+    Browser storage (localStorage, sessionStorage, IndexedDB, caches,
+    document.cookie, BroadcastChannel, ServiceWorker) is unavailable inside the
+    game iframe; use SDK storage helpers.
+versioning:
+  sdk: semver npm releases of @series-inc/rundot-game-sdk
+  game_builds: "rundot deploy bumps major|minor|patch (minor default); named tags (prod/staging) point at versions"
+  see: lifecycle/series-ai-lifecycle.yml
+idempotency:
+  status: not documented
+  note: RUN.world publishes no idempotency-key convention for SDK writes.
